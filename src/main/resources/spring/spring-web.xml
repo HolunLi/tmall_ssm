@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc https://www.springframework.org/mvc/spring-mvc.xsd">
+
+    <!-- 开启注解扫描, 扫描controller包下的注解才能生效 -->
+    <context:component-scan base-package="com.holun.tmall.controller" />
+
+    <!-- 开启注解驱动后，会自动注入handlerMapping和handlerAdapt -->
+    <mvc:annotation-driven />
+
+    <!--过滤静态资源-->
+    <mvc:default-servlet-handler />
+
+    <!-- 视图解析器 -->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- 对上传文件的解析-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 请求的编码格式，必须和jSP的pageEncoding属性一致，以便正确读取表单的内容-->
+        <property name="defaultEncoding" value="utf-8"/>
+        <!-- 上传文件大小上限，单位为字节（10485760=10M） -->
+        <property name="maxUploadSize" value="10485760"/>
+        <property name="maxInMemorySize" value="40960"/>
+    </bean>
+
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--拦截对前台页面的所有请求-->
+            <mvc:mapping path="/fore*"/>
+            <bean id="foreInterceptor" class="com.holun.tmall.interceptor.ForeInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <!--拦截对后台页面的所有请求-->
+            <mvc:mapping path="/admin*"/>
+            <bean id="adminInterceptor" class="com.holun.tmall.interceptor.AdminInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
+</beans>
