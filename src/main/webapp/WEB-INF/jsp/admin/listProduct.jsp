@@ -60,7 +60,7 @@
 							<img width="40px" src="img/productimage/single/${product.firstProductImage.id}.jpg">
 					</c:if>
 					</td>
-					<td>${product.name}</td>
+					<td><a href="foreProduct?pid=${product.id}">${product.name}</a></td>
 					<td>${product.subTitle}</td>
 					<td>${product.originalPrice}</td>
 					<td>${product.promotePrice}</td>

@@ -4,41 +4,58 @@
 <script>
  
 $(function(){
+    //获取当前产品的库存
     var stock = ${product.stock};
+
     //keyup表示键盘松开时，触发该事件（与keyup相反的事件是keydown，表示键盘按下时时，触发该事件）
     $(".productNumberSetting").keyup(function(){
-        var num= $(".productNumberSetting").val();
-        num = parseInt(num);
-        //在产品页面，购买的产品数量必须是整数
-        if(isNaN(num))
-            num = 1;
-        //在产品页面，购买的产品数量必须大于0
-        if(num <= 0)
-            num = 1;
-        //在产品页面，购买的产品数量不能大于库存数量
-        if(num > stock)
-            num = stock;
-        $(".productNumberSetting").val(num);
+        var num = parseInt($(".productNumberSetting").val());
+        if (stock > 0) {
+            //在产品页面，购买的产品数量必须是整数
+            if(isNaN(num))
+                num = 1;
+            //在产品页面，购买的产品数量必须大于0
+            if(num <= 0)
+                num = 1;
+            //在产品页面，购买的产品数量不能大于库存数量
+            if(num > stock)
+                num = stock;
+            $(".productNumberSetting").val(num);
+        }
+        else {
+            //在产品页面，购买的产品数量必须是整数
+            if(isNaN(num))
+                num = 0;
+            //在产品页面，购买的产品数量必须大于0
+            if(num <= 0)
+                num = 0;
+            //在产品页面，购买的产品数量不能大于库存数量
+            if(num > stock)
+                num = stock;
+            $(".productNumberSetting").val(num);
+        }
     });
 
     //点击增加购买的产品数量的链接时，触发该事件
     $(".increaseNumber").click(function(){
-        var num= $(".productNumberSetting").val();
+        var num = parseInt($(".productNumberSetting").val());
         //每点击一次产品数量+1
         num++;
-        if(num>stock)
+        if(num > stock)
             num = stock;
         $(".productNumberSetting").val(num);
     });
 
     //点击减少购买的产品数量的链接时，触发该事件
     $(".decreaseNumber").click(function(){
-        var num= $(".productNumberSetting").val();
-        //每点击一次产品数量-1
-        --num;
-        if(num<=0)
-            num=1;
-        $(".productNumberSetting").val(num);
+        if (stock > 0) {
+            var num= parseInt($(".productNumberSetting").val());
+            //每点击一次产品数量-1
+            --num;
+            if(num <= 0)
+                num = 1;
+            $(".productNumberSetting").val(num);
+        }
     });
 
     //点击加入购物车链接时，触发该事件。
@@ -228,7 +245,12 @@ $(function(){
             <span>
                 <span class="productNumberSettingSpan">
                 <%--输入需要购买的产品数量--%>
-                <input class="productNumberSetting" type="text" value="1">
+                <c:if test="${product.stock > 0}">
+                    <input class="productNumberSetting" type="text" value="1">
+                </c:if>
+                <c:if test="${product.stock == 0}">
+                    <input class="productNumberSetting" type="text" value="0">
+                </c:if>
                 </span>
 
                 <span class="arrow">

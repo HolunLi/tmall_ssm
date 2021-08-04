@@ -99,7 +99,10 @@ public class OrderServiceImpl implements OrderService {
             orderItemService.updateOrderItem(orderItem);
 
             Product product = orderItem.getProduct();
-            product.setStock(product.getStock() - orderItem.getNumber());
+            if (product.getStock() - orderItem.getNumber() >= 0)
+                product.setStock(product.getStock() - orderItem.getNumber());
+            else
+                product.setStock(0);
             //修改产品库存
             productService.updateProduct(product);
         }

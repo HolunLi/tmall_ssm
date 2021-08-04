@@ -141,7 +141,7 @@ public class ForeController {
         return "fore/bought";
     }
 
-    @RequestMapping("foreProduct")
+    @RequestMapping("/foreProduct")
     public String product(int pid, Model model) {
         Product product = productService.queryProductById(pid);
         List<ProductImage> singleImages = productImageService.list(product.getId(), ProductImageService.type_single);
