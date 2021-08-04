@@ -29,7 +29,7 @@ public class PageController {
         return "fore/buy";
     }
 
-    @RequestMapping("foreToAlipayPage")
+    @RequestMapping("/foreToAlipayPage")
     public String toAlipayPage(){
         return "fore/alipay";
     }
