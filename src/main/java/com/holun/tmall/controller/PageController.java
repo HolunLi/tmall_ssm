@@ -34,8 +34,4 @@ public class PageController {
         return "fore/alipay";
     }
 
-    @RequestMapping("/admin")
-    public String admin() {
-        return "redirect:admin_category_list";
-    }
 }

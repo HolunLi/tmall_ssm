@@ -11,7 +11,7 @@
 
 	<c:if test="${!empty user}">
 		<a href="">${user.name}</a>
-		<c:if test="${sessionScope.user.name == 'admin'}"><a href="admin_category_list">进入后台</a></c:if>
+		<c:if test="${sessionScope.user.name == 'admin'}"><a href="admin">进入后台</a></c:if>
 		<a href="foreLogout">退出</a>
 	</c:if>
 

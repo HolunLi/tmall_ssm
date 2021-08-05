@@ -9,6 +9,9 @@ public interface OrderItemService {
     //增加订单项
     int addOrderItem(OrderItem orderItem);
 
+    //将产品加入到购物车（实际上就是生成一个订单项）
+    void addProductToCart(int pid, int number, int uid);
+
     //根据id，删除某个订单项
     int deleteOrderItemById(int id);
 

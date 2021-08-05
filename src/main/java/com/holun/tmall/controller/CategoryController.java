@@ -26,7 +26,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping("/admin_category_list")
+    @RequestMapping({"/admin_category_list", "/admin"})
     public String list(Model model, Page page) {
 
         /*使用pageHelp插件进行分页显示所有的分类，以下三个步骤必须严格按照顺序*/

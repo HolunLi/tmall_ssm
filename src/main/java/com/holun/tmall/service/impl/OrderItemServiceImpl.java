@@ -38,6 +38,33 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
+    public void addProductToCart(int pid, int number, int uid) {
+        List<OrderItem> orderItems = listByUid(uid);
+        boolean found = false;
+
+        //如果加入购物车的产品，购物车中已存在这个产品对应的OrderItem，并且还没有生成订单，那么就应该在购物车中对应的OrderItem基础上，调整数量即可
+        if (!orderItems.isEmpty()) {
+            for (OrderItem orderItem : orderItems) {
+                if (pid == orderItem.getPid()) {
+                    orderItem.setNumber(orderItem.getNumber() + number);
+                    updateOrderItem(orderItem);
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        //如果加入购物车的产品，购物车中不存在这个产品对应的OrderItem,那么就新增一个订单项OrderItem
+        if (!found) {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setUid(uid);
+            orderItem.setPid(pid);
+            orderItem.setNumber(number);
+            addOrderItem(orderItem);
+        }
+    }
+
+    @Override
     public int deleteOrderItemById(int id) {
         return orderItemMapper.deleteByPrimaryKey(id);
     }

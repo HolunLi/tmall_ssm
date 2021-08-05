@@ -73,7 +73,7 @@ public class ForeController {
         this.orderItemService = orderItemService;
     }
 
-    @RequestMapping("/foreHome")
+    @RequestMapping({"/foreHome", "fore", "home"})
     public String home (Model model) {
         List<Category> categories = categoryService.list();
         categoryService.setProducts(categories);
@@ -192,29 +192,7 @@ public class ForeController {
     @ResponseBody
     public String addCart(int pid, int number, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        List<OrderItem> orderItems = orderItemService.listByUid(user.getId());
-        boolean found = false;
-
-        //如果加入购物车的产品，购物车中已存在这个产品对应的OrderItem，并且还没有生成订单，那么就应该在购物车中对应的OrderItem基础上，调整数量即可
-        if (!orderItems.isEmpty()) {
-            for (OrderItem orderItem : orderItems) {
-                if (pid == orderItem.getPid()) {
-                    orderItem.setNumber(orderItem.getNumber() + number);
-                    orderItemService.updateOrderItem(orderItem);
-                    found = true;
-                    break;
-                }
-            }
-        }
-
-        //如果加入购物车的产品，购物车中不存在这个产品对应的OrderItem,那么就新增一个订单项OrderItem
-        if (!found) {
-            OrderItem orderItem = new OrderItem();
-            orderItem.setUid(user.getId());
-            orderItem.setPid(pid);
-            orderItem.setNumber(number);
-            orderItemService.addOrderItem(orderItem);
-        }
+        orderItemService.addProductToCart(pid, number, user.getId());
 
         return "success";
     }
