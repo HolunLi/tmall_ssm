@@ -1,6 +1,8 @@
 <!-- 前台首页中的置顶导航 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 
+<link rel="icon" href="${pageContext.request.contextPath}/img/icon/favicon.ico" type="image/x-icon" />
+
 <nav class="top ">
 	<a href="${contextPath}">
 		<span style="color:#C40000;margin:0px" class=" glyphicon glyphicon-home redColor"></span>
