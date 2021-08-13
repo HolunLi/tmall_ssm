@@ -46,71 +46,39 @@ public class ProductImageController {
         return "admin/listProductImage";
     }
 
-    @Transactional
     @PostMapping("/admin_productImage_add")
-    public String addProductImage(ProductImage productImage, MultipartFile image, HttpSession session) {
-        productImageService.addProductImage(productImage);
-        String imageName = productImage.getId() + ".jpg";
-        String imageFolder;
-        String imageFolder_small = null;
-        String imageFolder_middle = null;
+    public String addProductImage(ProductImage productImage, MultipartFile[] images, HttpSession session) {
+        String imageFolder, imageFolder_small, imageFolder_middle;
 
         if (ProductImageService.type_single.equals(productImage.getType())) {
             imageFolder = session.getServletContext().getRealPath("img/productimage/single");
-            imageFolder_middle = session.getServletContext().getRealPath("img/productimage/single_middle");
             imageFolder_small = session.getServletContext().getRealPath("img/productimage/single_small");
+            imageFolder_middle = session.getServletContext().getRealPath("img/productimage/single_middle");
+            productImageService.uploadProductImage(productImage, images, imageFolder, imageFolder_small, imageFolder_middle);
         }
-        else
+        else {
             imageFolder = session.getServletContext().getRealPath("img/productimage/detail");
-
-        File file = new File(imageFolder, imageName);
-        if (!file.getParentFile().exists())
-            file.getParentFile().mkdirs();
-        ImageUtil.uploadImageToDestination(image, file);
-        //复制一份到对应的webapp路径下
-        CopyData.copyUploadImageToWebapp(file);
-
-        //如果产品图片的类型是单个类型，还需要更改产品图片的大小尺寸
-        if (ProductImageService.type_single.equals(productImage.getType())) {
-            //将上传的单个产品图片大小改为小尺寸，并写入到指定路径下存储
-            ImageUtil.resizeImage(file, 56, 56, new File(imageFolder_small + "/" + imageName));
-            //将上传的单个产品图片大小改为中尺寸，并写入到指定路径下存储
-            ImageUtil.resizeImage(file, 217, 190, new File(imageFolder_middle + "/" + imageName));
+            productImageService.uploadProductImage(productImage, images, imageFolder);
         }
 
         return "redirect:admin_productImage_list?pid=" + productImage.getPid();
     }
 
-    @Transactional
     @RequestMapping("/admin_productImage_delete")
     public String deleteProductImage(int id, HttpSession session) {
         ProductImage productImage = productImageService.queryProductImageById(id);
-        productImageService.deleteProductImageById(id);
+        String imageFolder, imageFolder_small, imageFolder_middle;
 
-        File file;
-        File file_webapp;
-        String imageName = id + ".jpg";
         if (ProductImageService.type_single.equals(productImage.getType())) {
-            //删除小号图片
-            file = new File(session.getServletContext().getRealPath("img/productimage/single_small"), imageName);
-            file_webapp = new File(ImageUtil.getImageFromWebapp(file));
-            file.delete();
-            file_webapp.delete();
-
-            //删除中号图片
-            file = new File(session.getServletContext().getRealPath("img/productimage/single_middle"), imageName);
-            file_webapp = new File(ImageUtil.getImageFromWebapp(file));
-            file.delete();
-            file_webapp.delete();
-
-            file = new File(session.getServletContext().getRealPath("img/productimage/single"), imageName);
+            imageFolder = session.getServletContext().getRealPath("img/productimage/single");
+            imageFolder_small = session.getServletContext().getRealPath("img/productimage/single_small");
+            imageFolder_middle = session.getServletContext().getRealPath("img/productimage/single_middle");
+            productImageService.deleteUploadProductImage(productImage, imageFolder, imageFolder_small, imageFolder_middle);
         }
-        else
-            file = new File(session.getServletContext().getRealPath("img/productimage/detail"), imageName);
-
-        file_webapp = new File(ImageUtil.getImageFromWebapp(file));
-        file.delete();
-        file_webapp.delete();
+        else {
+            imageFolder = session.getServletContext().getRealPath("img/productimage/detail");
+            productImageService.deleteUploadProductImage(productImage, imageFolder);
+        }
 
         return "redirect:admin_productImage_list?pid=" + productImage.getPid();
     }

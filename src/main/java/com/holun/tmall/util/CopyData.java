@@ -84,10 +84,6 @@ public class CopyData{
         }
     }
 
-    //将上传的图片复制一份到webapp路径下对应的目录下
-    public static void copyUploadImageToWebapp(File file) {
-        CopyData.copy(file.getAbsolutePath(), ImageUtil.getImageFromWebapp(file));
-    }
 }
 
 

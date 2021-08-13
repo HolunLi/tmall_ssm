@@ -9,7 +9,7 @@
 		$("#editForm").submit(function() {
 			if (!checkEmpty("name", "产品名称"))
 				return false;
-			//在新增产品时，产品的小标题可以为空
+			//在编辑产品时，产品的小标题可以为空
 //          if (!checkEmpty("subTitle", "小标题"))
 //              return false;
 			//输入的原价和优惠价格必须是数字

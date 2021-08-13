@@ -43,7 +43,8 @@
 									</tr>
 									<tr>
 										<td>
-											<input id="filepathSingle" type="file" name="image" />
+											<%--加上multiple属性一次能上传多个文件--%>
+											<input id="filepathSingle" type="file" name="images" multiple />
 										</td>
 									</tr>
 									<tr class="submitTR">
@@ -98,7 +99,7 @@
 									</tr>
 									<tr>
 										<td>
-											<input id="filepathDetail"  type="file" name="image" />
+											<input id="filepathDetail"  type="file" name="images" multiple/>
 										</td>
 									</tr>
 									<tr class="submitTR">

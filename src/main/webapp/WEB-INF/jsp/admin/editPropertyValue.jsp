@@ -7,10 +7,6 @@
 <script>
     $(function() {
         $("input.pvValue").keyup(function(){  //keyup表示当键盘键被松开时，触发该事件
-           /* var value = $(this).val();
-            var page = "admin_propertyValue_update";
-            var pvid = $(this).attr("pvid");
-            */
             var parentSpan = $(this).parent("span"); //获取当前被选标记的父标记，也就是<span>标记。
 			//当上诉事件被触发时（也就是前台页面正在修改属性值时），将<span>的边框颜色改为黄色
             parentSpan.css("border","1px solid yellow");

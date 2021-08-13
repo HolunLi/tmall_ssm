@@ -1,7 +1,10 @@
 package com.holun.tmall.service;
 
 import com.holun.tmall.entity.ProductImage;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface ProductImageService {
@@ -10,11 +13,17 @@ public interface ProductImageService {
     //详情图片（一个产品对应多个详情图片）
     String type_detail = "type_detail";
 
-    //增加产品图片
+    //增加产品图片到ProductImage表
     int addProductImage(ProductImage productImage);
 
-    //根据id,删除某个产品图片
+    //上传产品图片
+    void uploadProductImage(ProductImage productImage, MultipartFile[] images, String... imagesLocation);
+
+    //根据id,从ProductImage表中删除某个产品图片
     int deleteProductImageById(int id);
+
+    //删除已上传的产品图片
+    void deleteUploadProductImage(ProductImage productImage, String... imagesLocation);
 
     //根据id,查找某个产品图片
     ProductImage queryProductImageById(int id);

@@ -30,7 +30,6 @@ public class ImageUtil {
             BufferedImage img = new BufferedImage(RGB_OPAQUE, raster, false, null);
             return img;
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         }
@@ -42,13 +41,12 @@ public class ImageUtil {
             if(!destFile.getParentFile().exists())
                 destFile.getParentFile().mkdirs();
             //将File对象转换成Image对象，前提是这个File对象指向的是一个图片文件
-            Image i = ImageIO.read(srcFile);
-            i = resizeImage(i, width, height);
-            ImageIO.write((RenderedImage) i, "jpg", destFile);
+            Image image = ImageIO.read(srcFile);
+            image = resizeImage(image, width, height);
+            ImageIO.write((RenderedImage) image, "jpg", destFile);
             //将大小更改后的单个类型的产品图片复制一份到对应的webapp路径下
-            CopyData.copyUploadImageToWebapp(destFile);
+            copyUploadImageToWebapp(destFile);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -56,23 +54,19 @@ public class ImageUtil {
     //改变上传图片的大小
     public static Image resizeImage(Image srcImage, int width, int height) {
         try {
-
             BufferedImage buffImg = null;
             buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
             buffImg.getGraphics().drawImage(srcImage.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, null);
-
             return buffImg;
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     //将图片上传到指定路径下
     public static void uploadImageToDestination(MultipartFile image, File file) {
         try {
-
             //将上传的图片文件写入到指定路径下存放（这一步就已经将图片写入到了指定路径下存储，后面两步只是将已存储的图片转换成jpg格式后，再重新存储）
             image.transferTo(file);
             //将已写入指定路径下的图片转换成jpg格式
@@ -81,12 +75,29 @@ public class ImageUtil {
             ImageIO.write(img, "jpg", file);
 
             //将上传的图片再复制一份到webapp路径下对应的目录
-            CopyData.copyUploadImageToWebapp(file);
+            copyUploadImageToWebapp(file);
 
         } catch (IOException e) {
             System.out.println("图片上传失败!");
             e.printStackTrace();
         }
+    }
+
+    //删除已上传的图片
+    public static void deleteUploadImage(String... imagesLocations) {
+        File file, file_webapp;
+
+        for (String imagesLocation : imagesLocations) {
+            file = new File(imagesLocation);
+            file_webapp = new File(getImageFromWebapp(file));
+            file.delete();
+            file_webapp.delete();
+        }
+    }
+
+    //将上传的图片复制一份到webapp路径下对应的目录下
+    public static void copyUploadImageToWebapp(File file) {
+        CopyData.copy(file.getAbsolutePath(), ImageUtil.getImageFromWebapp(file));
     }
 
     //获取上传的图片，在webapp路径下对应的图片的绝对路径
