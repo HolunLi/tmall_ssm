@@ -255,7 +255,7 @@ $(function(){
 
                 <span class="arrow">
                     <%--点击该链接可以增加购买的产品数量--%>
-                    <a href="#nowhere" class="increaseNumber">
+                    <a class="increaseNumber">
                     <span class="updown">
                             <img src="img/site/increase.png">
                     </span>
@@ -263,7 +263,7 @@ $(function(){
                      
                     <span class="updownMiddle"> </span>
                     <%--点击该链接可以减少购买的产品数量--%>
-                    <a href="#nowhere"  class="decreaseNumber">
+                    <a class="decreaseNumber">
                     <span class="updown">
                             <img src="img/site/decrease.png">
                     </span>

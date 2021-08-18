@@ -3,11 +3,10 @@
 	
 <div class="productDetailDiv" >
 	<div class="productDetailTopPart">
-		<a href="#nowhere" class="productDetailTopPartSelectedLink selected">商品详情</a>
-		<a href="#nowhere" class="productDetailTopReviewLink">累计评价 <span class="productDetailTopReviewLinkNumber">${product.reviewCount}</span> </a>
+		<a href="#null" class="productDetailTopPartSelectedLink selected">商品详情</a>
+		<a href="#null" class="productDetailTopReviewLink">累计评价 <span class="productDetailTopReviewLinkNumber">${product.reviewCount}</span> </a>
 	</div>
-	
-	
+
 	<div class="productParamterPart">
 		<div class="productParamter">产品参数：</div>
 		
