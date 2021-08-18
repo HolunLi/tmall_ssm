@@ -12,6 +12,7 @@
 <html>
 
 <head>
+	<link rel="icon" href="${pageContext.request.contextPath}/img/icon/favicon.ico" type="image/x-icon" />
 	<script src="js/jquery/2.0.0/jquery.min.js"></script>
 	<link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
 	<script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
