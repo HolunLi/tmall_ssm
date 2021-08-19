@@ -59,9 +59,6 @@ public class ProductController {
     @RequestMapping("/admin_product_edit")
     public String editProduct(int id, Model model) {
         Product product = productService.queryProductById(id);
-        Category category = categoryService.queryCategoryById(product.getCid());
-        product.setCategory(category);
-
         model.addAttribute("product", product);
 
         return "admin/editProduct";

@@ -40,5 +40,9 @@
 		</div>
 		</c:if>
 	</c:forEach>
-		<div style="clear:both"></div>
+
+	<div style="clear:both"></div>
+	<div align="center">
+		<%@include file="../forePage.jsp" %>
+	</div>
 </div>

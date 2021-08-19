@@ -314,10 +314,10 @@ function syncPrice(pid, num, price){
 								<span class="hidden orderItemStock" pid="${orderItem.product.id}">${orderItem.product.stock}</span>
 								<span class="hidden orderItemPromotePrice" pid="${orderItem.product.id}">${orderItem.product.promotePrice}</span>
 								<!--减少产品数量链接-->
-								<a  pid="${orderItem.product.id}" class="numberMinus" href="#nowhere">-</a>
+								<a  pid="${orderItem.product.id}" class="numberMinus" href="#null">-</a>
 								<input pid="${orderItem.product.id}" oiid="${orderItem.id}" class="orderItemNumberSetting" value="${orderItem.number}" autocomplete="off">
 								<!--增加产品数量链接-->
-								<a  stock="${orderItem.product.stock}" pid="${orderItem.product.id}" class="numberPlus" href="#nowhere">+</a>
+								<a  stock="${orderItem.product.stock}" pid="${orderItem.product.id}" class="numberPlus" href="#null">+</a>
 							</div>					
 						
 						 </td>
@@ -327,7 +327,7 @@ function syncPrice(pid, num, price){
 							</span>
 						</td>
 						<td>
-							<a class="deleteOrderItem" oiid="${orderItem.id}" href="#nowhere">删除</a>
+							<a class="deleteOrderItem" oiid="${orderItem.id}" href="#null">删除</a>
 						</td>
 					</tr>
 				</c:forEach>				

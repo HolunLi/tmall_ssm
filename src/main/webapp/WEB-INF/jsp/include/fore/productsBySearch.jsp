@@ -22,12 +22,12 @@
 		</c:forEach>
 
 		<c:if test="${empty products}">
-			<div class="noMatch">没有满足条件的产品<div>
-				<div style="clear:both"></div>
-			</div>
+			<div class="noMatch">没有满足条件的产品</div>
 		</c:if>
-</div>
 
-<div align="center">
-	<%@include file="forePage.jsp" %>
+		<div style="clear:both"></div>
+
+		<div align="center">
+			<%@include file="forePage.jsp" %>
+		</div>
 </div>

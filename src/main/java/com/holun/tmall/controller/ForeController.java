@@ -102,18 +102,6 @@ public class ForeController {
         return "redirect:foreToRegisterSuccessPage";
     }
 
-    @PostMapping("/foreLogin")
-    @ResponseBody
-    public String login(String name, String pwd, HttpSession session) {
-        User user = userService.queryUserByNameAndPwd(HtmlUtils.htmlEscape(name), pwd);
-
-        if (user == null)
-            return  "fail";
-
-        session.setAttribute("user", user);
-        return "success";
-    }
-
     @RequestMapping("/foreLogout")
     public String logout(HttpSession session) {
         session.removeAttribute("user");
@@ -160,13 +148,20 @@ public class ForeController {
     }
 
     @RequestMapping("/foreCategory")
-    public String category(int cid, String sort, Model model) {
+    public String category(int cid, String sort, Page page, Model model) {
         Category category = categoryService.queryCategoryById(cid);
 
         if (sort != null) {
             categoryService.sort(category, sort);
         }
+        //分类页面的产品,每页只显示20个
+        page.setPageSize(20);
+        PageHelper.offsetPage(page.getStart(), page.getPageSize());
+        List<Product> products = category.getProducts();
+        int total = (int) new PageInfo<>(products).getTotal();
+        page.setTotal(total);
 
+        model.addAttribute("page", page);
         model.addAttribute("category", category);
 
         return "fore/category";
@@ -186,15 +181,6 @@ public class ForeController {
         model.addAttribute("products", products);
 
         return "fore/searchResult";
-    }
-
-    @PostMapping("/foreAddCart")
-    @ResponseBody
-    public String addCart(int pid, int number, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        orderItemService.addProductToCart(pid, number, user.getId());
-
-        return "success";
     }
 
     @RequestMapping("/foreBuyFromProductPage")
@@ -313,73 +299,4 @@ public class ForeController {
 
         return "redirect:foreReview?oid="+oid+"&pid="+pid+"&showonly=true";
     }
-
-    @PostMapping("/foreDeleteOrder")
-    @ResponseBody
-    public String deleteOrder(int oid, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        //这里对user进行判断，是为了防止由于当前页面可能停留时间过久，导致session失效。
-        if (user == null)
-            return "fail";
-
-        Order order = orderService.queryOrderById(oid);
-        //设置订单状态为已删除
-        order.setStatus(OrderService.delete);
-        orderService.updateOrder(order);
-        return "success";
-    }
-
-    @PostMapping("/foreDeleteOrderItem")
-    @ResponseBody
-    public String deleteOrderItem(int oiid, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        //这里对user进行判断，是为了防止由于当前页面可能停留时间过久，导致session失效。
-        if (user == null)
-            return "fail";
-
-        orderItemService.deleteOrderItemById(oiid);
-        return "success";
-    }
-
-    @PostMapping("/foreChangeOrderItem")
-    @ResponseBody
-    public String changeOrderItem(int pid, int number, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        //这里对user进行判断，是为了防止由于当前页面可能停留时间过久，导致session失效。
-        if (user == null)
-            return "fail";
-
-        List<OrderItem> orderItems = orderItemService.listByUid(user.getId());
-        for (OrderItem orderItem : orderItems) {
-            if (orderItem.getPid() == pid) {
-                orderItem.setNumber(number);
-                orderItemService.updateOrderItem(orderItem);
-                break;
-            }
-        }
-
-        return "success";
-    }
-
-    @RequestMapping("/foreCheckLogin")
-    @ResponseBody
-    public String checkLogin(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-
-        if (user == null)
-            return "fail";
-        return "success";
-    }
-
-    @PostMapping("/foreLoginAjax")
-    @ResponseBody
-    public String loginAjax(String name, String pwd, HttpSession session) {
-        User user = userService.queryUserByNameAndPwd(HtmlUtils.htmlEscape(name), pwd);
-
-        if (user == null)
-            return "fail";
-        session.setAttribute("user", user);
-        return "success";
-    }
-
 }

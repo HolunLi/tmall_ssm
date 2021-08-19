@@ -87,12 +87,12 @@ $(function(){
 	
 <div class="boughtDiv">
 	<div class="orderType">
-		<div class="selectedOrderType"><a orderStatus="all" href="#nowhere">所有订单</a></div>
-		<div><a orderStatus="waitPay" href="#nowhere">待付款</a></div>
-		<div><a orderStatus="waitDelivery" href="#nowhere">待发货</a></div>
-		<div><a orderStatus="waitConfirm" href="#nowhere">待收货</a></div>
-		<div><a orderStatus="waitReview" href="#nowhere">待评价</a></div>
-		<div><a orderStatus="finish" href="#nowhere" class="noRightborder">交易完成</a></div>
+		<div class="selectedOrderType"><a orderStatus="all" href="#null">所有订单</a></div>
+		<div><a orderStatus="waitPay" href="#null">待付款</a></div>
+		<div><a orderStatus="waitDelivery" href="#null">待发货</a></div>
+		<div><a orderStatus="waitConfirm" href="#null">待收货</a></div>
+		<div><a orderStatus="waitReview" href="#null">待评价</a></div>
+		<div><a orderStatus="finish" href="#null" class="noRightborder">交易完成</a></div>
 		<div class="orderTypeLastOne"><a class="noRightborder">&nbsp;</a></div>
 	</div>
 
@@ -123,7 +123,7 @@ $(function(){
 					</td>
 					<td  colspan="2"><img width="13px" src="img/site/orderItemTmall.png">天猫商场</td>
 					<td colspan="1">
-						<a class="wangwanglink" href="#nowhere">
+						<a class="wangwanglink" href="#null">
 							<div class="orderItemWangWangGif"></div>
 						</a>
 					</td>

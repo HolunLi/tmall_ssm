@@ -145,7 +145,7 @@ $(function(){
         }
 
         $.post(
-                "foreLoginAjax",
+                "foreLogin",
                 {"name":name,"pwd":pwd},
                 function(result){
                     //登录成功，重新加载当前产品页面

@@ -37,6 +37,12 @@
         <mvc:interceptor>
             <!--拦截对前台页面的所有请求-->
             <mvc:mapping path="/fore*"/>
+            <mvc:exclude-mapping path="/foreLogin"/>
+            <mvc:exclude-mapping path="/foreAddCart"/>
+            <mvc:exclude-mapping path="/foreDeleteOrderItem"/>
+            <mvc:exclude-mapping path="/foreDeleteOrder"/>
+            <mvc:exclude-mapping path="/foreChangeOrderItem"/>
+            <mvc:exclude-mapping path="/foreCheckLogin"/>
             <bean id="foreInterceptor" class="com.holun.tmall.interceptor.ForeInterceptor" />
         </mvc:interceptor>
         <mvc:interceptor>
