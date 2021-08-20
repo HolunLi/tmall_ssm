@@ -17,6 +17,7 @@ public class Page {
 
     public Page() {
         pageSize = defaultPageSize;
+        param = "";
     }
 
     public Page(int start, int pageSize) {

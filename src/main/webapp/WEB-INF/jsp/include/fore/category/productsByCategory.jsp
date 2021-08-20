@@ -1,19 +1,9 @@
 <%--产品列表--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 
-<c:if test="${empty param.productCount}">
-	<!-- 分类页面，默认显示当前分类的前100个产品，变量productCount是显示的产品数量 -->
-	<c:set var="productCount" scope="page" value="100"/>
-</c:if>
-<c:if test="${!empty param.productCount}">
-	<c:set var="productCount" scope="page" value="${param.productCount}"/>
-</c:if>
-	
 <div class="categoryProducts">
-	<%--在分类页面，遍历当前分类包含的全部产品--%>
-	<c:forEach var="product" items="${category.products}" varStatus="stc">
-		<!-- 但只显示当前分类的前productCount个产品（productCount默认值为100） -->
-		<c:if test="${stc.count <= productCount}">
+	<!-- 在分类页面，遍历当前分类包含的全部产品，每页显示20个产品 -->
+	<c:forEach var="product" items="${products}">
 		<div class="productUnit" price="${product.promotePrice}">
 			<div class="productUnitFrame">
 				<a href="foreProduct?pid=${product.id}">
@@ -38,7 +28,6 @@
 				</div>
 			</div>
 		</div>
-		</c:if>
 	</c:forEach>
 
 	<div style="clear:both"></div>

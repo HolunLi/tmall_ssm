@@ -3,7 +3,7 @@
 
 <div id="category">
 	<div class="categoryPageDiv">
-		<img src="img/category/${category.id}.jpg">
+		<img src="img/category/${cid}.jpg">
 		<%@include file="sortBar.jsp"%>
 		<%@include file="productsByCategory.jsp"%>
 	</div>

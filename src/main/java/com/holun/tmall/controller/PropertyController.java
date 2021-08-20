@@ -38,7 +38,7 @@ public class PropertyController {
         List<Property> properties = propertyService.list(cid);
         int total = (int) new PageInfo<>(properties).getTotal();
         page.setTotal(total);
-        page.setParam("&cid=" + category.getId());
+        page.setParam("cid=" + category.getId());
 
         model.addAttribute("category", category);
         model.addAttribute("properties", properties);

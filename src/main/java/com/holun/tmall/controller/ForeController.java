@@ -149,20 +149,19 @@ public class ForeController {
 
     @RequestMapping("/foreCategory")
     public String category(int cid, String sort, Page page, Model model) {
-        Category category = categoryService.queryCategoryById(cid);
-
-        if (sort != null) {
-            categoryService.sort(category, sort);
-        }
         //分类页面的产品,每页只显示20个
-        page.setPageSize(20);
+        page.setPageSize(4);
         PageHelper.offsetPage(page.getStart(), page.getPageSize());
-        List<Product> products = category.getProducts();
+        List<Product> products = productService.list(cid);
         int total = (int) new PageInfo<>(products).getTotal();
         page.setTotal(total);
+        page.setParam("cid=" + cid + "&sort=" + sort);
+
+        categoryService.sort(products, sort);
 
         model.addAttribute("page", page);
-        model.addAttribute("category", category);
+        model.addAttribute("products", products);
+        model.addAttribute("cid", cid);
 
         return "fore/category";
     }

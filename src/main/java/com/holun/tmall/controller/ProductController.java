@@ -39,7 +39,7 @@ public class ProductController {
         List<Product> products = productService.list(cid);
         int total = (int) new PageInfo<>(products).getTotal();
         page.setTotal(total);
-        page.setParam("&cid=" + cid);
+        page.setParam("cid=" + cid);
 
         model.addAttribute("page", page);
         model.addAttribute("products", products);

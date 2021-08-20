@@ -100,27 +100,31 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void sort(Category category, String sort) {
+    public void sort(List<Product> products, String sort) {
+        if (sort == null) {
+            Collections.sort(products, new ProductAllComparator());
+            return;
+        }
 
         switch (sort) {
             case "review":
                 //Collections工具类中的sort方法可以为List集合中的元素排序，前提是需要提供一个比较器
-                Collections.sort(category.getProducts(), new ProductReviewComparator());
+                Collections.sort(products, new ProductReviewComparator());
                 break;
             case "date" :
-                Collections.sort(category.getProducts(), new ProductDateComparator());
+                Collections.sort(products, new ProductDateComparator());
                 break;
 
             case "saleCount" :
-                Collections.sort(category.getProducts(), new ProductSaleCountComparator());
+                Collections.sort(products, new ProductSaleCountComparator());
                 break;
 
             case "price":
-                Collections.sort(category.getProducts(), new ProductPriceComparator());
+                Collections.sort(products, new ProductPriceComparator());
                 break;
 
             case "all":
-                Collections.sort(category.getProducts(), new ProductAllComparator());
+                Collections.sort(products, new ProductAllComparator());
                 break;
         }
 
