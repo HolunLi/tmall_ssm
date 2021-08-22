@@ -37,6 +37,7 @@
         <mvc:interceptor>
             <!--拦截对前台页面的所有请求-->
             <mvc:mapping path="/fore*"/>
+            <mvc:mapping path="/home"/>
             <mvc:exclude-mapping path="/foreLogin"/>
             <mvc:exclude-mapping path="/foreAddCart"/>
             <mvc:exclude-mapping path="/foreLogout"/>

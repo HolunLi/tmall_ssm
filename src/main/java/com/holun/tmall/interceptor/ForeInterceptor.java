@@ -76,7 +76,7 @@ public class ForeInterceptor implements HandlerInterceptor {
 
         String requestURI = StringUtils.remove(request.getRequestURI(), contextPath);
         String method = StringUtils.substringAfterLast(requestURI, "/fore");
-        if ("Home".equals(method)) {
+        if ("Home".equals(method) || "".equals(method)) {
             System.out.println("不做处理");
         }
         else {

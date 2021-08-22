@@ -150,7 +150,7 @@ public class ForeController {
     @RequestMapping("/foreCategory")
     public String category(int cid, String sort, Page page, Model model) {
         //分类页面的产品,每页只显示20个
-        page.setPageSize(4);
+        page.setPageSize(20);
         PageHelper.offsetPage(page.getStart(), page.getPageSize());
         List<Product> products = productService.list(cid);
         int total = (int) new PageInfo<>(products).getTotal();
