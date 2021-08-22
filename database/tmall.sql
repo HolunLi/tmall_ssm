@@ -1,5 +1,5 @@
-CREATE DATABASE tmall DEFAULT CHARACTER SET utf8mb4;
-use tmall;
+CREATE DATABASE tmall_ssm DEFAULT CHARACTER SET utf8mb4;
+use tmall_ssm;
 
 CREATE TABLE category (
   id int NOT NULL AUTO_INCREMENT,
