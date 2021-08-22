@@ -23,7 +23,7 @@ $(function(){
          <%--
           <a href="?${page.param}&start=0" aria-label="Previous" > 等价于
           <a href="http://localhost:8888/tmall_ssm/admin_category_list?${page.param}&start=0" aria-label="Previous" >
-              ?号前面省略url，, 默认就是当前应用程序的上下文路径。
+              ?号前面省略url，, 默认就是当前请求的路径（不包含请求参数）。
          --%>
 
       <%-- 上一页超链接--%>

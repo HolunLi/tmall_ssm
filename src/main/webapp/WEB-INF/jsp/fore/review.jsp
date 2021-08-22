@@ -5,6 +5,6 @@
 <%@include file="../include/fore/header.jsp"%>
 <%@include file="../include/fore/top.jsp"%>
 <%@include file="../include/fore/simpleSearch.jsp"%>
-<%--评价业务页面--%>
+<%--商品评价业务页面--%>
 <%@include file="../include/fore/cart/reviewPage.jsp"%>
 <%@include file="../include/fore/footer.jsp"%>

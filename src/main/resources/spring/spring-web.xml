@@ -39,10 +39,15 @@
             <mvc:mapping path="/fore*"/>
             <mvc:exclude-mapping path="/foreLogin"/>
             <mvc:exclude-mapping path="/foreAddCart"/>
+            <mvc:exclude-mapping path="/foreLogout"/>
             <mvc:exclude-mapping path="/foreDeleteOrderItem"/>
             <mvc:exclude-mapping path="/foreDeleteOrder"/>
             <mvc:exclude-mapping path="/foreChangeOrderItem"/>
             <mvc:exclude-mapping path="/foreCheckLogin"/>
+            <mvc:exclude-mapping path="/foreBuyFromProductPage"/>
+            <mvc:exclude-mapping path="/foreBuyFromCart"/>
+            <mvc:exclude-mapping path="/foreCreateOrder"/>
+            <mvc:exclude-mapping path="/foreDoReview"/>
             <bean id="foreInterceptor" class="com.holun.tmall.interceptor.ForeInterceptor" />
         </mvc:interceptor>
         <mvc:interceptor>
